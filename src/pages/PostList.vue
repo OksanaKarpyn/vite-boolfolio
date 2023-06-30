@@ -11,20 +11,29 @@ export default {
     data() {
         return {
             store,
-
+            selectCategory: 'all',
 
         }
     },
     mounted() {
-        this.api()
+        this.api();
+        this.getcategory();
 
     },
     methods: {
-        api(currentPage) {
+        api() {
+            const params = {
+                page: this.store.currentPage,
+            }
+            if (this.selectCategory !== 'all') {
+                params.category_id = this.selectCategory
+            }
             axios.get(`${this.store.baseUrl}/api/post`, {
-                params: {
-                    page: this.store.currentPage
-                }
+                params
+                // : {
+                //     page: this.store.currentPage,
+                //     //category_id: this.selectCategory
+                // }
             })
                 .then((res) => {
                     this.store.arrayProject = res.data.post.data;
@@ -48,15 +57,35 @@ export default {
                 return this.store.currentPage = 1;
             }
             //this.store.currentPage = this.store.currentPage + 1;
-        }
+        },
+        getcategory() {
+
+            axios.get(`${this.store.baseUrl}/api/categories`)
+                .then((res) => {
+                    this.store.category = res.data.categories
+                    console.log(this.store.category);
+                })
+        },
 
     }
+
 
 }
 </script>
 
 <template>
-    <h1>Ciao mondo</h1>
+    <div class="container">
+        <h1>Portfolio</h1>
+        <div class="mb-3">
+            <label for="category" class="form-label">Categorie</label>
+            <select @change="api()" v-model="selectCategory" class="form-select form-select-lg" name="" id="category">
+                <option value="all">--Select All---</option>
+                <option :value="elem.id" v-for="(elem, index) in this.store.category" :key="index">{{ elem.title }}
+                </option>
+            </select>
+        </div>
+    </div>
+
     <MainComp></MainComp>
     <div class="container d-flex justify-content-center my-4">
         <nav aria-label="Page navigation example">
@@ -77,4 +106,9 @@ export default {
     </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.router-link-active {
+    background-color: rgb(158, 214, 226);
+    border-radius: 5px;
+}
+</style>
