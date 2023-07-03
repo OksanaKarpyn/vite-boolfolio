@@ -10,8 +10,8 @@ export default {
 }
 </script>
 <template>
-    <div class="container my-5">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container py-5">
+        <nav class="navbar navbar-expand-lg rounded-3">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">logo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"

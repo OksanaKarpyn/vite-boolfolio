@@ -12,13 +12,20 @@ export default {
         return {
             store,
             selectCategory: 'all',
-
+            selectTecnology: []
         }
     },
     mounted() {
         this.api();
         this.getcategory();
+        this.getTecnology();
 
+    },
+    watch: {
+        selectTecnology: {
+            handler: 'api',
+            deep: true
+        }
     },
     methods: {
         api() {
@@ -28,6 +35,10 @@ export default {
             if (this.selectCategory !== 'all') {
                 params.category_id = this.selectCategory
             }
+            if (this.selectTecnology.length > 0) {
+                params.tecnol_ids = this.selectTecnology.join(',');
+            }
+            console.log(params);
             axios.get(`${this.store.baseUrl}/api/post`, {
                 params
                 // : {
@@ -66,6 +77,12 @@ export default {
                     console.log(this.store.category);
                 })
         },
+        getTecnology() {
+            axios.get(`${this.store.baseUrl}/api/tecnologies`)
+                .then((res) => {
+                    this.store.tecnology = res.data.queryTecnology
+                })
+        }
 
     }
 
@@ -77,6 +94,16 @@ export default {
     <div class="container">
         <h1>Portfolio</h1>
         <div class="mb-3">
+            <h2>Tecnologies</h2>
+            <div class="form-group" v-for="(elem, index) in this.store.tecnology" :key="index">
+                <input type="checkbox" name="" id="" :value="elem.id" v-model="selectTecnology">
+                <label for="tecnology" class="ms-2">
+                    {{ elem.title }}
+                </label>
+            </div>
+
+        </div>
+        <div class="mb-3">
             <label for="category" class="form-label">Categorie</label>
             <select @change="api()" v-model="selectCategory" class="form-select form-select-lg" name="" id="category">
                 <option value="all">--Select All---</option>
@@ -87,7 +114,7 @@ export default {
     </div>
 
     <MainComp></MainComp>
-    <div class="container d-flex justify-content-center my-4">
+    <div class=" d-flex justify-content-center my-4">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item"><a class="page-link" @click.prevent=" prev(), api(currentPage)" href="#">Previous</a>
@@ -108,7 +135,9 @@ export default {
 
 <style lang="scss">
 .router-link-active {
-    background-color: rgb(158, 214, 226);
-    border-radius: 5px;
+    background-color: transparent;
+
+    border: 1.5px solid #928978;
+    border-radius: 25% 10%;
 }
 </style>

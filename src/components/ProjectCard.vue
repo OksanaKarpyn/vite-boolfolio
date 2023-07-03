@@ -18,12 +18,12 @@ export default {
 </script>
 <template>
     <div class="col-3 d-flex">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 22rem;">
             <div>
                 <img :src="`${store.baseUrl}/storage/${nomeProps.image}`" class="card-img-top" alt="...">
             </div>
-            <h5 class="card-title">{{ nomeProps.title }}</h5>
             <div class="card-body">
+                <h5 class="card-title">{{ nomeProps.title }}</h5>
                 <p class="card-text">{{ nomeProps.content }}</p>
                 <p class="card-text" v-if="nomeProps.category">{{ nomeProps.category.title }}</p>
                 <ul class="card-text" v-if="nomeProps.tecnologies">
@@ -35,4 +35,9 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card {
+    --bs-card-bg: rgba(20, 19, 19, 0.444);
+    --bs-card-border-color: rgb(34, 30, 30);
+}
+</style>

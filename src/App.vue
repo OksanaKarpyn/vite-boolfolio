@@ -29,10 +29,18 @@ export default {
 </script>
 
 <template>
-  <AppHeader></AppHeader>
-  <router-view></router-view>
+  <div class="wrapper">
+    <AppHeader></AppHeader>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style lang="scss">
 @use './style/main.scss';
+
+.wrapper {
+  background-color: transparent;
+  background-image: url(https://i.pinimg.com/736x/b9/de/9f/b9de9f00e4d1929271bf43058d61764f.jpg);
+  background-size: cover;
+}
 </style>
