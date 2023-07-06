@@ -23,6 +23,7 @@ export default {
                         <router-link class="nav-link" href="#" to="/">Home</router-link>
                         <router-link class="nav-link" href="#" to="/blog">Posts</router-link>
                         <router-link class="nav-link active" aria-current="page" to="/about">About</router-link>
+                        <router-link class="nav-link active" aria-current="page" to="/contacts">Contact</router-link>
                     </div>
                 </div>
             </div>

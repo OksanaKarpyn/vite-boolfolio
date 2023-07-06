@@ -38,13 +38,11 @@ export default {
             if (this.selectTecnology.length > 0) {
                 params.tecnol_ids = this.selectTecnology.join(',');
             }
-            console.log(params);
+            //console.log(params);
             axios.get(`${this.store.baseUrl}/api/post`, {
+
                 params
-                // : {
-                //     page: this.store.currentPage,
-                //     //category_id: this.selectCategory
-                // }
+
             })
                 .then((res) => {
                     this.store.arrayProject = res.data.post.data;
@@ -74,7 +72,7 @@ export default {
             axios.get(`${this.store.baseUrl}/api/categories`)
                 .then((res) => {
                     this.store.category = res.data.categories
-                    console.log(this.store.category);
+                    // console.log(this.store.category);
                 })
         },
         getTecnology() {
@@ -101,7 +99,6 @@ export default {
                     {{ elem.title }}
                 </label>
             </div>
-
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Categorie</label>
